@@ -1,19 +1,37 @@
 class Solution:
     def totalFruit(self, fruits: list[int]) -> int:
+
         max_fruits = 0
-        start = end = 0
+        start = 0
         picked = {}
 
         for end in range(len(fruits)):
             picked[fruits[end]] = picked.get(fruits[end], 0) + 1
-            if len(picked) > 2:
-                max_fruits = max(max_fruits, end - start)
-                while len(picked) > 2:
-                    picked[fruits[start]] -= 1
-                    if picked[fruits[start]] == 0:
-                        picked.pop(fruits[start])
-                    start += 1
-        return max(max_fruits, end - start)
+
+            while len(picked) > 2:
+                picked[fruits[start]] -= 1
+                if picked[fruits[start]] == 0:
+                    picked.pop(fruits[start])
+                start += 1
+            
+            # invariant is true here!
+            max_fruits = max(max_fruits, end - start + 1)
+        return max_fruits
+
+        # max_fruits = 0
+        # start = end = 0
+        # picked = {}
+
+        # for end in range(len(fruits)):
+        #     picked[fruits[end]] = picked.get(fruits[end], 0) + 1
+        #     if len(picked) > 2:
+        #         max_fruits = max(max_fruits, end - start)
+        #         while len(picked) > 2:
+        #             picked[fruits[start]] -= 1
+        #             if picked[fruits[start]] == 0:
+        #                 picked.pop(fruits[start])
+        #             start += 1
+        # return max(max_fruits, end - start)
 
 
         # max_fruits = 0
