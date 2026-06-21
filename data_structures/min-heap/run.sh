@@ -1,6 +1,6 @@
 #!/bin/bash
 
-g++20h iostream vector
+g++20h iostream algorithm vector
 g++20 -c heap.cc
 g++20 -c heap-impl.cc
 g++20 -c main.cc
