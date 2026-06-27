@@ -1,24 +1,43 @@
 class Solution:
     def decodeString(self, s: str) -> str:
-        decoded, _ = self.decode(s, 0)
-        return decoded
-    def decode(self, s: str, i: int) -> str:
+        stack = []
         decoded = ""
         curNumber = 0
-        while (i < len(s)):
-            if s[i] >= 'a' and s[i] <= 'z':
-                decoded += s[i]
-            elif s[i].isdigit():
-                curNumber = curNumber * 10 + int(s[i])
-            elif s[i] == '[':
-                tempDecoded, k = self.decode(s, i+1)
-                decoded += curNumber * tempDecoded
-                i = k
+
+        for c in s:
+            if c >= 'a' and c <= 'z':
+                decoded += c
+            elif c.isdigit():
+                curNumber = curNumber * 10 + int(c)
+            elif c == '[':
+                stack.append(decoded)
+                stack.append(curNumber)
                 curNumber = 0
+                decoded = ""
             else: # ]
-                break
-            i += 1
-        return decoded, i
+                prevNum = stack.pop()
+                prevDecoded = stack.pop()
+                decoded = prevDecoded + prevNum * decoded
+        return decoded
+    #     decoded, _ = self.decode(s, 0)
+    #     return decoded
+    # def decode(self, s: str, i: int) -> str:
+    #     decoded = ""
+    #     curNumber = 0
+    #     while (i < len(s)):
+    #         if s[i] >= 'a' and s[i] <= 'z':
+    #             decoded += s[i]
+    #         elif s[i].isdigit():
+    #             curNumber = curNumber * 10 + int(s[i])
+    #         elif s[i] == '[':
+    #             tempDecoded, k = self.decode(s, i+1)
+    #             decoded += curNumber * tempDecoded
+    #             i = k
+    #             curNumber = 0
+    #         else: # ]
+    #             break
+    #         i += 1
+    #     return decoded, i
         # decoded = ""
         # stack = []
 
